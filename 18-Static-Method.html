@@ -1,0 +1,32 @@
+<html>
+  <script>
+    class Utils {
+      thisCount = 0;
+      // share static property in every object
+      static staticCount = 0;
+      static add(a, b) {
+        // can't use this in static method
+        console.log(this.thisCount);
+
+        return a + b;
+      }
+      sub(a, b) {
+        // can use static property in no static method
+        Utils.staticCount++;
+        console.log("a - b", a - b);
+      }
+      multiply(a, b) {
+        Utils.staticCount++;
+        console.log("a * b", a * b);
+      }
+    }
+    let result = Utils.add(2, 3);
+    console.log("result ", result);
+
+    let obj1 = new Utils();
+    obj1.sub(5, 3);
+    let obj2 = new Utils();
+    obj2.multiply(5, 3);
+    console.log("static count ", Utils.staticCount);
+  </script>
+</html>

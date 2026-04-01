@@ -1,0 +1,28 @@
+<html>
+  <script>
+    class Human {
+      name;
+      // use setter with # private it can protect modifying from directly
+      #age;
+      constructor(name, age) {
+        this.name = name;
+        this.#age = age;
+      }
+      set age(newValue) {
+        if (newValue > 0 && newValue < 100) {
+          this.#age = newValue;
+        }
+      }
+      display() {
+        console.log("Name ", this.name, " Age ", this.age);
+      }
+    }
+    let obj = new Human("KTZ", 30);
+    obj.age = 200;
+    obj.age = 35;
+    obj.age = 20;
+    let obj2 = new Human("Another", 40);
+    console.log("obj ", obj);
+    console.log("obj2 ", obj2);
+  </script>
+</html>

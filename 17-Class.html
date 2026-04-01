@@ -1,0 +1,39 @@
+<html>
+  <script>
+    let stack1 = {
+      items: [],
+      push(item) {
+        this.items.push(item);
+      },
+      pop() {
+        return this.items.pop();
+      },
+    };
+    stack1.push(100);
+    stack1.push(200);
+    console.log("stack1 pop ", stack1.pop());
+    console.log("stack1 pop ", stack1.pop());
+
+    //  reusable
+    class Stack {
+      items = [];
+      push(item) {
+        this.items.push(item);
+      }
+      pop() {
+        return this.items.pop();
+      }
+    }
+    let stack2 = new Stack();
+    stack2.push(100);
+    stack2.push(200);
+    console.log("stack2 pop ", stack2.pop());
+    console.log("stack2 pop ", stack2.pop());
+
+    let stack3 = new Stack();
+    stack3.push(100);
+    stack3.push(200);
+    console.log("stack3 pop ", stack3.pop());
+    console.log("stack3 pop ", stack3.pop());
+  </script>
+</html>
