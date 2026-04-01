@@ -1,0 +1,75 @@
+<html>
+  <script>
+    let students = [
+      {
+        name: "Aung Aung",
+        age: 31,
+        gender: "male",
+        address: "Pyay",
+      },
+      {
+        name: "Bo Bo",
+        age: 29,
+        gender: "male",
+        address: "Ygn",
+      },
+      {
+        name: "Khin Khin",
+        age: 28,
+        gender: "female",
+        address: "Pyay",
+      },
+      {
+        name: "Kyaw",
+        age: 25,
+        gender: "male",
+        address: "Ygn",
+      },
+      {
+        name: "Su",
+        age: 29,
+        gender: "female",
+        address: "Pyay",
+      },
+    ];
+    //  This code is not reuseable
+    //  let group = students.reduce((group, student) => {
+    //    if (!group[student.gender]) {
+    //      return {
+    //        ...group,
+    //        [student.gender]: [student],
+    //      };
+    //    } else {
+    //      return {
+    //        ...group,
+    //        [student.gender]: [...group[student.gender], student],
+    //      };
+    //    }
+    //  }, {});
+    //  console.log("group ", group);
+
+    //  reuseable code with function
+    function groupBy(arr, key) {
+      let group = arr.reduce((group, item) => {
+        let property = item[key];
+        if (!group[property]) {
+          return {
+            ...group,
+            [property]: [item],
+          };
+        } else {
+          return {
+            ...group,
+            [property]: [...group[property], item],
+          };
+        }
+      }, {});
+      return group;
+    }
+    let groupByGender = groupBy(students, "gender");
+    console.log("group by gender ", groupByGender);
+
+    let groupByAddress = groupBy(students, "address");
+    console.log("group by address ", groupByAddress);
+  </script>
+</html>

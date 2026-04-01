@@ -1,0 +1,36 @@
+<html>
+  <script>
+    //  function payment() {
+    //    payment.callCount++;
+    //    console.log("payment");
+    //  }
+    //  payment.callCount = 0;
+    //  payment.callCount < 1 ? payment() : "";
+    //  payment.callCount < 1 ? payment() : "";
+    //  payment.callCount < 1 ? payment() : "";
+
+    //  SOLUTION IS NOT RESUABLE
+    let done = false;
+    function payment() {
+      if (!done) {
+        console.log("payment");
+      }
+      done = true;
+    }
+    payment();
+    payment();
+    payment();
+
+    //  SOLUTION IS NOT RESUABLE
+    let orderDone = false;
+    function order() {
+      if (!orderDone) {
+        console.log("order");
+      }
+      orderDone = true;
+    }
+    order();
+    order();
+    order();
+  </script>
+</html>

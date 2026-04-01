@@ -1,0 +1,45 @@
+<html>
+  <script src="library/ramda.min.js"></script>
+  <script>
+    console.log("R.add ", R.add);
+    console.log("R.add(2)(3) ", R.add(2)(3));
+
+    //  curry
+    function add(x, y) {
+      return x + y;
+    }
+    let curriedAdd = R.curry(add);
+    console.log("curriedAdd ", curriedAdd(2)(4));
+
+    let incOne = (x) => x + 1;
+    let double = (x) => x * 2;
+    let newFun = R.pipe(double, incOne);
+    console.log("newFun ", newFun(1));
+
+    //  Main input must be in right most
+    const equals3 = R.equals(3);
+    console.log("equals 3 ", R.all(equals3)([3, 3, 3, 3]));
+    console.log("equals 3 ", R.all(equals3)([3, 3, 4, 3]));
+
+    //  ifElse
+    const incCount = R.ifElse(
+      //IF
+      R.has("count"), //check property exists
+      R.over(R.lensProp("count"), R.inc),
+      //  ELSE
+      R.assoc("count", 1), // set count value // it's immutable
+    );
+    console.log("incCount with count property ", incCount({ count: 1 }));
+    console.log("incCount without count property ", incCount({}));
+
+    let person = {
+      name: "thazin",
+      age: 31,
+    };
+    let clonePerson = R.assoc("age", 30)(person);
+    console.log("set age ", clonePerson); // set value // immutable
+    console.log("get age ", R.prop("age")(person));
+
+    console.log("person ", person);
+  </script>
+</html>

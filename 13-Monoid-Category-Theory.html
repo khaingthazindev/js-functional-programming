@@ -1,0 +1,36 @@
+<html>
+  <script>
+    // Monoid => 1. Associativity, 2. Identity
+    /*
+    associativity
+    a + b + c => (a + b) + c == a + (b + c)
+    a * b * c => (a * b) * c == a * (b * c)
+    'a' + 'b' + 'c' => ('a' + 'b') + 'c' == 'a' + ('b' + 'c')
+	 because of associativity can make operation parallel
+	 
+	 identity
+	 fun (a) => a
+	 fun (b) => b
+	 */
+    const Sum = {
+      binaryOperation: (a, b) => a + b,
+      identity: 0,
+    };
+
+    const Min = {
+      binaryOperation: (a, b) => (a < b ? a : b),
+      identity: Number.MAX_VALUE,
+    };
+
+    function fold(arr, monoid) {
+      return arr.reduce(monoid.binaryOperation, monoid.identity);
+    }
+
+    let arr = [10, 20, 3, 4];
+    let min = fold(arr, Min);
+    console.log("min with monoid ", min);
+
+    let total = fold(arr, Sum);
+    console.log("sum with monoid ", total);
+  </script>
+</html>

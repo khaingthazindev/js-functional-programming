@@ -1,0 +1,51 @@
+<html>
+  <script>
+    let students = [
+      {
+        name: "Aung Aung",
+        age: 31,
+        gender: "male",
+        address: "Address 1",
+      },
+      {
+        name: "Bo Bo",
+        age: 29,
+        gender: "male",
+        address: "Address 2",
+      },
+      {
+        name: "Khin Khin",
+        age: 28,
+        gender: "female",
+        address: "Address 3",
+      },
+      {
+        name: "Kyaw",
+        age: 25,
+        gender: "male",
+        address: "Address 4",
+      },
+      {
+        name: "Su",
+        age: 29,
+        gender: "female",
+        address: "Address 5",
+      },
+    ];
+
+    //  {
+    // 	'male': [],
+    // 	'female': []
+    //  }
+    let group = {};
+
+    for (const student of students) {
+      if (!group[student.gender]) {
+        group[student.gender] = [student];
+      } else {
+        group[student.gender] = [...group[student.gender], student];
+      }
+    }
+    console.log("gender group ", group);
+  </script>
+</html>

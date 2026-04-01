@@ -1,0 +1,57 @@
+<html>
+  <script src="library/ramda.min.js"></script>
+  <script src="library/funlib.js"></script>
+  <script>
+    let employees = {
+      1: {
+        name: "employee 1",
+      },
+      2: {
+        name: "employee 2",
+        supervisor: 1,
+      },
+      3: {
+        name: "employee 3",
+        supervisor: 1,
+      },
+      4: {
+        name: "employee 4",
+        supervisor: 3,
+      },
+    };
+    //  with imperative (not clean code)
+    function getSupervisorName(employeeId) {
+      let employee = employees[employeeId];
+      if (employee) {
+        let supervisor = employees[employee.supervisor];
+        if (supervisor) {
+          return supervisor.name;
+        }
+      }
+    }
+    console.log("Imperative ", getSupervisorName(4));
+    console.log("Imperative ", getSupervisorName(1));
+    console.log("Imperative ", getSupervisorName(5));
+    console.log("----------------");
+
+    //  with functional maybe (clean code)
+    const log = R.tap(console.log);
+    function getSupervisorNameFP(employeeId) {
+      return MayBe.of(employees[employeeId])
+        .map(log)
+        .map((employee) => employee.supervisor)
+        .map(log)
+        .map((supervisorId) => employees[supervisorId])
+        .map(log)
+        .map((supervisor) => supervisor.name);
+    }
+
+    console.log("Functional Maybe ", getSupervisorNameFP(4).value);
+    console.log(getSupervisorNameFP(14));
+
+    getSupervisorNameFP(14)
+      .map(log)
+      .orElse("Empty")
+      .map((name) => console.log(name));
+  </script>
+</html>

@@ -1,0 +1,34 @@
+<html>
+  <script>
+    // solve with closure // store variable in function calls
+    function once(fn, callback) {
+      let done = false;
+      return function (...rest) {
+        if (!done) {
+          done = true;
+          return fn(...rest);
+        } else {
+          callback();
+        }
+      };
+    }
+
+    function payment(orderId, amount) {
+      console.log(`payment orderId ${orderId} amount ${amount}`);
+    }
+    let paymentOnce = once(payment, () => console.log("payment has done"));
+    paymentOnce(5, 100);
+    paymentOnce(6, 1000);
+    paymentOnce(7, 10000);
+
+    function order() {
+      return "order function";
+    }
+    let orderOnce = once(order, () => console.log("order has done"));
+    let result = orderOnce();
+    console.log(result);
+
+    orderOnce();
+    orderOnce();
+  </script>
+</html>

@@ -1,0 +1,70 @@
+<html>
+  <script src="library/ramda.min.js"></script>
+  <script>
+    const Left = (value) => ({
+      valueOf() {
+        return value;
+      },
+      map(fn) {
+        console.log("left map--", fn(value));
+        return Left.of(fn(value));
+      },
+      matchWith(context) {
+        return context.left(value);
+      },
+    });
+    Left.of = Left;
+
+    const Right = (value) => ({
+      valueOf() {
+        return value;
+      },
+      map(fn) {
+        console.log("right map", fn(value));
+
+        return Right.of(fn(value));
+      },
+      matchWith(context) {
+        return context.right(value);
+      },
+    });
+    Right.of = Right;
+
+    // Left.of("Error Case").matchWith({
+    //   left: (value) => console.log("Error Case", value),
+    //   right: (value) => console.log("Success Case", value),
+    // });
+
+    // Right.of(100).matchWith({
+    //   left: (value) => console.log("Error Case", value),
+    //   right: (value) => console.log("Success Case", value),
+    // });
+
+    function div(a, b) {
+      if (isNaN(a) || isNaN(b)) {
+        return Left.of("a or b is invalid");
+      }
+      return Right.of(a / b);
+    }
+    div(10, NaN)
+      .map(function (x) {
+        console.log("map ", x);
+        return x + 2;
+      })
+      .matchWith({
+        left: (value) => console.log("Div Error Case", value),
+        right: (value) => console.log("Div Success Case", value),
+      });
+
+    div(10, 2)
+      .map(function (x) {
+        console.log("div(10, 2) log");
+
+        return x + 2;
+      })
+      .matchWith({
+        left: (value) => console.log("Div Error Case", value),
+        right: (value) => console.log("Div Success Case", value),
+      });
+  </script>
+</html>

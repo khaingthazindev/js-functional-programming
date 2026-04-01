@@ -1,0 +1,28 @@
+<html>
+  <script>
+    // map is for transform, filter is for select, transform many elements to single element
+    // map
+    let a = [1, 2, 3, 4, 5];
+    let mapAry = a.map((item) => item * 2);
+    console.log("mapAry ", mapAry);
+
+    // reduce
+    let reduceAry = a.reduce(
+      (accu, currentItem) => [...accu, currentItem * 2],
+      [],
+    );
+    console.log("reduceAry ", reduceAry);
+
+    // filter
+    let filterAry = a.filter((item) => item % 2 === 0);
+    console.log("filterAry ", filterAry);
+
+    //  reduce
+    let reduceAryForFilter = a.reduce(
+      (accu, currentItem) =>
+        currentItem % 2 === 0 ? [...accu, currentItem] : accu,
+      [],
+    );
+    console.log("reduceAryForFilter ", reduceAryForFilter);
+  </script>
+</html>

@@ -1,0 +1,45 @@
+<html>
+  <script>
+    let appendHi = (x) => `${x} Hi`;
+    let toUpper = (x) => x.toUpperCase();
+    let appendName = (x) => `${x} Khaing Thazin`;
+    let appendGreeting = (x) => `Hello ${x}`;
+    let appendHRU = (x) => `${x} How are you?`;
+    //  Imperative // Problem is this method can do only append hi and to upper
+    function appendHiAndToUpper(x) {
+      return toUpper(appendHi(x));
+    }
+
+    //  solve with composition
+    let compose = function (funA, funB) {
+      // reuseable code
+      return function (x) {
+        return funA(funB(x));
+      };
+    };
+    composeFun1 = compose(toUpper, appendHi);
+    let result = composeFun1("Hello");
+    console.log("result ", result);
+
+    composeFun2 = compose(toUpper, appendName);
+    console.log("append name ", composeFun2("Hey"));
+
+    //  compose example 2
+    let incOne = (x) => x + 1;
+    let double = (x) => x * 2;
+    let compose3 = compose(double, incOne);
+    console.log("increase double 1 ", compose3(1));
+    console.log("increase double 2 ", compose3(2));
+
+    //  compose for unlimited functions
+    let composeUnlimited = function (...fns) {
+      return function (x) {
+        return fns.reduceRight((accu, currentFun) => currentFun(accu), x);
+      };
+    };
+    let compose4 = composeUnlimited(toUpper, appendHRU, appendName);
+    console.log("compose unlimited ", compose4("Hello"));
+
+    // ** Compose code is hard to read because it works from right to left that is why 'Pipe' is needed
+  </script>
+</html>

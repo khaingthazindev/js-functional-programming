@@ -1,0 +1,41 @@
+<html>
+  <script src="library/ramda.min.js"></script>
+  <script>
+    //  const letters = ["a", "b", "A", "a", "B", "c"];
+    //  console.log("CountBy ", R.countBy(R.toLower)(letters));
+
+    let nums = [1, 1, 1, 1, 2, 2, 3, 3, 3];
+    let k = 2;
+
+    /*
+    // get frequency
+    let frequencyObj = R.countBy(R.identity)(nums);
+    //  change object to array
+    let frequencyAry = R.toPairs(frequencyObj);
+    // sort
+    let sortFrequence = R.sort((a, b) => b[1] - a[1], frequencyAry);
+    // get items
+    let topFrequences = R.map((item) => item[0])(sortFrequence);
+    // get top k
+    let topKFrequence = R.take(k)(topFrequences);
+    console.log("top k frequence ", topKFrequence);
+	 */
+
+    let log = R.tap(console.log);
+
+    //  Refector code
+    let getTopK = R.pipe(
+      R.countBy(R.identity),
+      log,
+      R.toPairs,
+      log,
+      R.sort((a, b) => b[1] - a[1]),
+      log,
+      R.map((item) => item[0]),
+      log,
+      R.take(k),
+      log,
+    );
+    console.log("top k frequence ", getTopK(nums));
+  </script>
+</html>

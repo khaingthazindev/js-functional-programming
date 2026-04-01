@@ -1,0 +1,24 @@
+<html>
+  <script>
+    function hello(name) {
+      console.log(`Hello ${name}`);
+    }
+    function checkArgu(fn) {
+      return function (...rest) {
+        if (fn.length !== rest.length) {
+          console.warn(
+            `${fn.name} expected ${fn.length} arguments but ${rest.length} found.`,
+          );
+        } else {
+          let returnValue = fn(...rest);
+          return returnValue;
+        }
+      };
+    }
+    let helloFn = checkArgu(hello);
+    let result = helloFn("Khaing Thazin");
+    if (result) {
+      console.log("result ", result);
+    }
+  </script>
+</html>

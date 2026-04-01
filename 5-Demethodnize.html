@@ -1,0 +1,21 @@
+<html>
+  <script>
+    // Demethodnize means change method to function because method can't compose
+    // problem is method can't compose so need to change to function
+    //  map as method
+    let arr = ["1", "2", "3"];
+    let mapAsMethod = arr.map((x) => x * 2);
+    console.log("mapAsMethod ", mapAsMethod);
+
+    //  map as function
+    let mapAsFunction = function (fn) {
+      return function (obj, ...rest) {
+        return fn.call(obj, ...rest); //indrect invocation
+      };
+    };
+
+    mapAsFunction = mapAsFunction(Array.prototype.map);
+    let result = mapAsFunction(arr, (x) => x * 2);
+    console.log("result ", result);
+  </script>
+</html>

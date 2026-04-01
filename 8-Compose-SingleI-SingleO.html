@@ -1,0 +1,28 @@
+<html>
+  <script>
+    function pipe(...fns) {
+      return function (fnInput) {
+        return fns.reduce((input, fn) => fn(input), fnInput);
+      };
+    }
+    //  composition functions must be 'single input and single output'
+    //  problem is 'not single input'
+    let add = (x, y) => x + y; // not single input
+
+    // currying
+    //  x = 2 y = 5
+    let addWithSI = function (x) {
+      console.log("aws x ", x);
+
+      return function (y) {
+        console.log("aws y ", y);
+        return x + y;
+      };
+    };
+    let double = (x) => x * 2;
+
+    let newFun = pipe(addWithSI(2), double);
+    let result = newFun(5);
+    console.log("result ", result);
+  </script>
+</html>

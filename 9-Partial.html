@@ -1,0 +1,18 @@
+<html>
+  <script>
+    // Partial means passing incomplete arguments
+    function add(x, y) {
+      return x + y;
+    }
+    function curry(fn) {
+      return fn.length == 1
+        ? fn
+        : function (x) {
+            // recursive
+            return curry(fn.bind(null, x));
+          };
+    }
+    let addCurry = curry(add);
+    console.log("addCurry ", addCurry(2)(3));
+  </script>
+</html>

@@ -1,0 +1,54 @@
+<html>
+  <script src="library/funlib.js"></script>
+  <script>
+    let nums = [1, 1, 1, 1, 2, 2, 3, 3, 3];
+    //  Output [1, 3]
+    /*
+    Requirement
+    find frequency of nums
+    sort nums based on frequency
+    extract top k
+    */
+    let k = 2;
+
+    function findFrequency(arr) {
+      // {'1': 4, '2': 2, '3': 3}
+      return arr.reduce((group, item) => {
+        if (group[item]) {
+          group[item]++;
+        } else {
+          group[item] = 1;
+        }
+        return group;
+      }, {});
+    }
+    // let groupObj = findFrequency(nums);
+    // console.log("groupObj ", groupObj);
+
+    // let groupAry = Object.entries(groupObj);
+    // console.log("groupAry ", groupAry);
+
+    let sortFunction = demethodnize(Array.prototype.sort);
+    let sortFunction2 = reverse(sortFunction);
+    // let sort2WithSingleInput = curry(sortFunction2);
+    // to pipe 'main input' must be in the right most so we reverse the arguments
+    // let sortFrequence = sortFunction2((a, b) => b[1] - a[1], groupAry);
+
+    let findFrequence = pipe(
+      findFrequency,
+      Object.entries,
+      // sort2WithSingleInput((a, b) => b[1] - a[1]),
+    );
+    let groupAry = findFrequence(nums);
+    console.log("groupAry ", groupAry);
+
+    // console.log("sortFrequence 2 ", sortFrequence);
+
+    let sortFrequence = groupAry.sort((a, b) => b[1] - a[1]);
+    sortFrequence = sortFrequence.map((frequence) => frequence[0]);
+    console.log("sortFrequence ", sortFrequence);
+
+    let topKFrequence = sortFrequence.slice(0, k);
+    console.log("topKFrequence ", topKFrequence);
+  </script>
+</html>

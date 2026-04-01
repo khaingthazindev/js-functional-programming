@@ -1,0 +1,29 @@
+<html>
+  <script>
+    // problem & requirement is we don't want to write function logging in every function
+    function hello() {
+      console.log("hello");
+    }
+    function hi() {
+      console.log("hi");
+    }
+
+    // HOF wrapping solved 'cross cutting functionality for more than one functions'
+    // solved with closure // wrap with HOF
+    function logger(fn) {
+      return function (...rest) {
+        console.log(`${fn.name} started`);
+        let returnValue = fn(...rest);
+        console.log(`${fn.name} finished`);
+
+        return returnValue;
+      };
+    }
+
+    let helloFn = logger(hello);
+    helloFn();
+
+    let hiFn = logger(hi);
+    hiFn();
+  </script>
+</html>

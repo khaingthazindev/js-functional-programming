@@ -1,0 +1,99 @@
+<html>
+  <script src="library/ramda.min.js"></script>
+  <script src="library/funlib.js"></script>
+  <script>
+    //  function divImperative(a, b) {
+    //    if (isNaN(a) || isNaN(b)) {
+    //      throw new Error("a or b is NaN");
+    //    } else {
+    //      return a / b;
+    //    }
+    //  }
+
+    //  function process(a, b) {
+    //    let result;
+    //    try {
+    //      result = divImperative(a, b);
+    //      console.log("result ", result);
+    //    } catch (e) {
+    //      result = 0;
+    //    }
+    //    return result * 2;
+    //  }
+
+    //  let result = process(4, 2);
+    //  console.log("result ", result);
+    //  console.log("------------------");
+
+    //  result = process(4, NaN);
+    //  console.log("result ", result);
+    //  console.log("------------------");
+
+    /*
+          Problem
+          csv => apple = 2; orange: 3; bananna: 4
+      parse => ['apple', 2], ['orange', 3], ['bananna', 4] if OK total = 7
+      if NOT OK parseError
+      */
+
+    let csvStr = "apple=2;orange=13;banana=4";
+    function parse(csvStr) {
+      // normal value -> container "called Monadic Function"
+      if (csvStr === null || csvStr === undefined || csvStr === "") {
+        /*
+      Imperative
+          throw new Error("Invalid string");
+      */
+        // ROR
+        return Left.of("Invalid string");
+      } else {
+        let items = csvStr.split(";");
+        let arr = [];
+        for (const item of items) {
+          let [key, value] = item.split("=");
+          arr.push({ key, value: parseInt(value) });
+        }
+        /*
+      Imperative
+          return arr;
+      */
+        // ROR
+        return Right.of(arr);
+      }
+    }
+    function maxItem(arr) {
+      if (arr.length === 0) {
+        return Left.of("Empty array");
+      } else {
+        let result = arr.reduce(
+          (a, b) => {
+            let maxItem = a.value > b.value ? a : b;
+            return maxItem;
+          },
+          {
+            key: "Dummy",
+            value: Number.MIN_VALUE,
+          },
+        );
+        //   console.log("max item ", result);
+
+        return Right.of(result);
+      }
+    }
+    //  let arr = parse(csvStr);
+
+    //  let max = maxItem(arr);
+    //  console.log("Imperative max ", max);
+
+    //  Functional (ROR)
+
+    function print(item) {}
+    parse(csvStr) //string -> Either
+      .flatMap(maxItem) //array -> Either (Right(Right))
+      // .flat() // Right(Right) -> Right
+      .matchWith({
+        left: (value) => console.log("Div Error Case", value),
+        right: (value) => console.log("Div Success Case", value),
+      });
+  </script>
+</html>

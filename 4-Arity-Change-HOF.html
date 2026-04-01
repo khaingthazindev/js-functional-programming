@@ -1,0 +1,24 @@
+<html>
+  <script>
+    // Arity Change means 'change function into one parameter acceptance function'
+    let strArr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+
+    let numArr = strArr.map(parseInt);
+    console.log("numArr ", numArr);
+    // this result is unexpected // [1, NaN,..., 9]
+    //why got NaN? In map it will take parameter like (value, index, arr)
+    // ('1', 0) => parseInt('1', 0) parseInt(value, base)
+    // ('2', 1) => parseInt('2', 1)
+    // ('3', 2) => parseInt('3', 2)
+
+    // so we need to change parseInt to 'one paramenter acceptance function'
+    let unary = function (fn) {
+      return function (x) {
+        return fn(x);
+      };
+    };
+
+    let numArr2 = strArr.map(unary(parseInt));
+    console.log("numArr2 ", numArr2);
+  </script>
+</html>

@@ -1,0 +1,34 @@
+<html>
+  <script src="library/ramda.min.js"></script>
+  <script>
+    let toUpper = (str) => str.toUpperCase();
+    let appendHi = (str) => `${str} Hi`;
+    let pipeFuns = R.pipe(toUpper, appendHi);
+    let okResult = pipeFuns("hello");
+    //  let errResult = pipeFuns(null);
+    //  console.log("okResult ", okResult);
+    //  console.log("errResult ", errResult);
+
+    //  null validation is 'cross cutting concern'
+    // solve with maybe functor
+    let MayBe = (value) => ({
+      value,
+      map: function (fn) {
+        return this.isEmpty() ? MayBe.of(null) : MayBe.of(fn(value));
+      },
+      isEmpty: () => value === null || value === undefined,
+      orElse: function (defaultStr) {
+        return this.value === null ? MayBe.of(defaultStr) : this;
+      },
+    });
+    MayBe.of = MayBe;
+    let maybeObj = MayBe.of("hello").map(toUpper).map(appendHi);
+    console.log("maybe value result ", maybeObj.value);
+
+    let maybeObj1 = MayBe.of(undefined)
+      .map(toUpper)
+      .map(appendHi)
+      .orElse("Empty String");
+    console.log("maybe empty result ", maybeObj1.value);
+  </script>
+</html>

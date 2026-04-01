@@ -1,0 +1,16 @@
+<html>
+  <script>
+    // pipe is easier then compose in reading  because pipe works left to right
+    let toUpper = (x) => x.toUpperCase();
+    let appendName = (x) => `${x} Khaing Thazin`;
+    let appendHRU = (x) => `${x} How are you?`;
+    // compose works right to left so 'pipe' is used
+    let pipe = function (...fns) {
+      return function (x) {
+        return fns.reduce((accu, currentFun) => currentFun(accu), x);
+      };
+    };
+    let compose4 = pipe(appendName, appendHRU, toUpper);
+    console.log("compose unlimited ", compose4("Hello"));
+  </script>
+</html>

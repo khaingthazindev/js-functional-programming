@@ -1,0 +1,22 @@
+<html>
+  <script>
+    // try catch limitation is it can not handle async
+    function div2(a, b) {
+      console.log("now here");
+      setTimeout(() => {
+        console.log("started div");
+        if (isNaN(a) || isNaN(b)) {
+          throw new Error("A or B is invalid");
+        } else {
+          return a / b;
+        }
+      }, 1000);
+    }
+    try {
+      let result = div2(0, NaN);
+      console.log("result ", result);
+    } catch (e) {
+      console.log("error ", e);
+    }
+  </script>
+</html>

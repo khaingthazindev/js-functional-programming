@@ -1,0 +1,19 @@
+<html>
+  <script src="library/funlib.js"></script>
+  <script>
+    // for R.has
+    function has(propertyName, obj) {
+      return propertyName in obj;
+    }
+    let person = {
+      name: "ktz",
+      age: 31,
+      address: "Pyay",
+    };
+    let curryHas = curry(has);
+    let R = {};
+    R.has = curryHas;
+    console.log("check name property ", R.has("name")(person));
+    console.log("check name property ", R.has("school")(person));
+  </script>
+</html>

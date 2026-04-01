@@ -1,0 +1,50 @@
+<html>
+  <script src="library/ramda.min.js"></script>
+  <script>
+    // Functor is used for immutability
+    //original counter not change
+    let data = 1;
+    //  let immuData = data + 1;
+    //  console.log("immuData ", immuData);
+
+    let Container = (value) => ({
+      value,
+      map: (fn) => Container(fn(value)),
+    });
+
+    inc = (value) => value + 1;
+    double = (value) => value * 2;
+
+    let counter = Container(1);
+    let resultCounter = counter.map(inc);
+    //  console.log("counter value ", counter.value);
+    //  console.log("result counter value ", resultCounter.value);
+    console.log("Functor ");
+
+    console.log(
+      "rule 1 origin value ",
+      counter.value,
+      " after map value ",
+      resultCounter.value,
+    );
+
+    let counter1 = Container(1);
+    let resultCounter1 = counter1.map(double);
+    //  console.log("counter1 value ", counter1.value);
+    //  console.log("resultCounter1 value ", resultCounter1.value);
+
+    let pipeFun = R.pipe(inc, double);
+    let resultCounterWithPipe = counter.map(pipeFun);
+    //  console.log("resultCounterWithPipe ", resultCounterWithPipe.value);
+
+    let resultCounterWithChain = counter.map(inc).map(double);
+    //  console.log("resultCounterWithChain ", resultCounterWithChain.value);
+
+    console.log(
+      "rule 2 result with pipe ",
+      resultCounterWithPipe.value,
+      " = result with chain ",
+      resultCounterWithChain.value,
+    );
+  </script>
+</html>
