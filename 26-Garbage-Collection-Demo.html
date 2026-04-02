@@ -1,0 +1,30 @@
+<html>
+  <body>
+    <button id="allocateBtn">Allocate</button>
+    <button id="deAllocateBtn">De-allocate</button>
+  </body>
+  <script>
+    let arr = [];
+    //  it will increase heap memory
+    function allocate() {
+      console.log(
+        "allocated must increase size test with console memory heap snapshot",
+      );
+      arr.push(new Array(10000000));
+    }
+    //  it will decrease heap memory because in stack frame doesn't have reference pointer for heap's object
+    function deAllocate() {
+      arr = null;
+    }
+    document
+      .getElementById("allocateBtn")
+      .addEventListener("click", function () {
+        allocate();
+      });
+    document
+      .getElementById("deAllocateBtn")
+      .addEventListener("click", function () {
+        deAllocate();
+      });
+  </script>
+</html>

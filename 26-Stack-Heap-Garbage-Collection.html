@@ -1,0 +1,20 @@
+<html>
+  <script>
+    function one() {
+      console.log("one start");
+      two();
+      console.log("one end");
+    }
+    function two() {
+      console.log("two start");
+      three();
+      console.log("two end");
+    }
+    function three() {
+      console.log("three start");
+      console.log("three end");
+    }
+    //  work like a Boomerang return to the origin
+    one();
+  </script>
+</html>

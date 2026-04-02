@@ -1,0 +1,42 @@
+<html>
+  <script>
+    class MySet {
+      constructor(data) {
+        this.items = [];
+        for (const item of data) {
+          this.add(item);
+        }
+      }
+      add(item) {
+        if (!this.items.includes(item)) {
+          this.items.push(item);
+        }
+      }
+      delete(item) {
+        let index = this.items.indexOf(item);
+        if (index !== -1) {
+          this.items.splice(index, 1);
+        }
+      }
+      has(item) {
+        return this.items.includes(item);
+      }
+      clear() {
+        this.items = [];
+      }
+      get size() {
+        return this.items.length;
+      }
+    }
+    let s1 = new MySet([1, 2, 3, 1, 1, 4]);
+    s1.add(10);
+    s1.add(10);
+    s1.delete(15);
+    console.log("s1 ", s1);
+    console.log("s1.size ", s1.size);
+    console.log("s1.has(1) ", s1.has(1));
+    console.log("s1.has(7) ", s1.has(7));
+    //  s1.clear();
+    console.log("s1.items ", s1.items);
+  </script>
+</html>
