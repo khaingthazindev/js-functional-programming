@@ -1,0 +1,17 @@
+<html>
+  <body>
+    <button id="btnAllocate" type="button">Allocate</button>
+  </body>
+  <script>
+    // 1 bit 8 bytes
+    // in dynamic problems 'take more memory then require' int acctually needs 4bytes in JS number takes 40bytes, array takes 160bytes
+    let arr = [];
+    document
+      .getElementById("btnAllocate")
+      .addEventListener("click", function () {
+        //   arr = new Array(10000000);
+        //   more smaller size than new Array
+        arr = new Int8Array(10000000);
+      });
+  </script>
+</html>

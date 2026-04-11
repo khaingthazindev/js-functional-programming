@@ -1,0 +1,24 @@
+<html>
+  <script>
+    // there must include 'iterator method' in 'Iterator'
+    function* range(start, end) {
+      for (let i = start; i < end; i++) {
+        yield i;
+      }
+    }
+    let iterator = range(1, 5)[Symbol.iterator]();
+    console.log("iterator ", iterator);
+    console.log("next ", iterator.next());
+    console.log("next ", iterator.next());
+    console.log("next ", iterator.next());
+    console.log("next ", iterator.next());
+
+    for (const i of range(1, 4)) {
+      console.log("iterator ", i);
+    }
+
+    //  iterator to array
+    let arr = [...range(1, 7)];
+    console.log("arr ", arr);
+  </script>
+</html>

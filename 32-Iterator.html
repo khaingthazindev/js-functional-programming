@@ -1,0 +1,20 @@
+<html>
+  <script>
+    let arr = [1, 2, 3];
+    for (const item of arr) {
+      console.log(item);
+    }
+    let iterator = arr[Symbol.iterator]();
+    console.log("iterator ", iterator);
+
+    console.log("next ", iterator.next());
+    console.log("next ", iterator.next());
+    console.log("next ", iterator.next());
+    console.log("next ", iterator.next());
+
+    let set = new Set([1, 2, 3, 1, 1, 2]);
+    for (const item of set) {
+      console.log("set item ", item);
+    }
+  </script>
+</html>

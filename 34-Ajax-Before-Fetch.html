@@ -1,0 +1,25 @@
+<html>
+  <script>
+    function fetchUrl(url, callback) {
+      let request = new XMLHttpRequest();
+      request.open("GET", url);
+      console.log("network request send");
+      request.send();
+
+      request.onload = function () {
+        console.log("network response received");
+        if (request.status == 200) {
+          callback(request.responseText);
+        }
+      };
+
+      request.onerror = function () {
+        console.log("network request fail");
+      };
+    }
+
+    fetchUrl("https://dummyjson.com/todos", (data) => {
+      console.log("data ", data);
+    });
+  </script>
+</html>

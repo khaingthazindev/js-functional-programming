@@ -1,0 +1,22 @@
+<html>
+	<body>
+		<input type="button" id="btnClear" value="Clear"></input>
+	
+		<script>
+			let timer;
+			document.getElementById('btnClear').addEventListener('click', function () {
+				clearInterval(interval);
+			});
+			function invokeLater(fn, ms) {
+				setTimeout(fn, ms);
+			}
+			invokeLater(() => {
+				console.log("Hello world after 2 second ");
+			}, 2000);
+
+			let interval = setInterval(function () {
+				console.log(new Date().toLocaleTimeString());
+			}, 1000);
+		</script>
+  </body>
+</html>

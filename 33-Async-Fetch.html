@@ -1,0 +1,13 @@
+<html>
+  <script>
+    // you can't guess which async code is completed first
+    fetch("https://dummyjson.com/todos")
+      .then((res) => res.json()) // callback
+      .then((json) => console.log(json)); //callback
+    setTimeout(() => console.log("after one second"), 1000);
+    fetch("https://dummyjson.com/todos/1")
+      .then((res) => res.json())
+      .then((json) => console.log(json));
+    console.log("Hello");
+  </script>
+</html>

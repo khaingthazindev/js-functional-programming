@@ -1,0 +1,64 @@
+<html>
+  <script>
+    // problem is div -> multi -> console
+    //  div(10, 2) -> result,  multi(result, 3)), sub(result - 2)
+    function div(a, b) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (isNaN(a) || isNaN(b)) {
+            reject("a or b is NaN");
+          } else {
+            resolve(a / b);
+          }
+        }, 3000);
+      });
+    }
+
+    function multi(a, b) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (isNaN(a) || isNaN(b)) {
+            reject("a or b is NaN");
+          } else {
+            resolve(a * b);
+          }
+        }, 3000);
+      });
+    }
+
+    div(10, 2)
+      .then(
+        (result) => multi(result, 3),
+        (error) => console.log(error),
+      )
+      .then((multiResult) => console.log("multi result ", multiResult));
+
+    //  div(10, NaN).then(
+    //    (result) => console.log(result),
+    //    (error) => console.log(error),
+    //  );
+
+    //  function sub(a, b, callback) {
+    //    setTimeout(() => {
+    //      console.log("computed");
+    //      callback(a - b);
+    //      console.log("done");
+    //    }, 3000);
+    //  }
+
+    //  function callback(data) {
+    //    console.log("data ", data);
+    //  }
+
+    //  //  Callback hello 'hard to trace, hard to maintain'
+    //  div(10, 2, (result) => {
+    //    console.log("10/2 = ", result);
+    //    multi(result, 3, (result2) => {
+    //      console.log(`${result} * 3 = `, result2);
+    //      sub(result2, 2, (result3) => {
+    //        console.log(`${result2} - 2 = `, result3);
+    //      });
+    //    });
+    //  });
+  </script>
+</html>

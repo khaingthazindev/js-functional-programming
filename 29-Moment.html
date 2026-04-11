@@ -1,0 +1,29 @@
+<html>
+  <script src="./library/moment.min.js"></script>
+  <script>
+    //  let now = moment();
+    //  now.add(3, "days");
+    //  console.log("now ", now);
+
+    let json = {
+      name: "KTZ",
+      date: new Date(),
+      toJSON() {
+        return {
+          name: this.name,
+          date: this.date.getTime(),
+        };
+      },
+    };
+    let str = JSON.stringify(json);
+    console.log("str ", str);
+
+    let obj = JSON.parse(str, function (key, value) {
+      if (key === "date") {
+        return new Date(value);
+      }
+      return value;
+    });
+    console.log("obj ", obj);
+  </script>
+</html>

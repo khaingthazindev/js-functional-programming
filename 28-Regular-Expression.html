@@ -1,0 +1,18 @@
+<html>
+  <script>
+    //  let pattern = /script$/i;
+    let pattern = /script$/;
+    console.log(
+      "end with script JavaScript different case with script ",
+      pattern.test("JavaScript"),
+    );
+    console.log(
+      "end with script Javascript same case with script ",
+      pattern.test("Javascript"),
+    );
+
+    let pattern1 = /^Java/;
+    console.log("start with Java ", pattern1.test("JavaScript"));
+    console.log("start with Java ", pattern1.test("Java"));
+  </script>
+</html>

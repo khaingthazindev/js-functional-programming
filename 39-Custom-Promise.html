@@ -1,0 +1,76 @@
+<html>
+  <script>
+    class CustomPromise {
+      callbacks = [];
+
+      constructor(executor) {
+        executor(this.resolve.bind(this), this.reject.bind(this));
+      }
+      resolve(data) {
+        let result = data;
+        let success = true;
+        for (let i = 0; i < this.callbacks.length; i++) {
+          try {
+            if (success) {
+              result = this.callbacks[i].success(result);
+            } else {
+              result = this.callbacks[i].error(result);
+            }
+            success = true;
+          } catch (e) {
+            success = false;
+            result = e;
+          }
+        }
+      }
+      reject(data) {
+        let result = data;
+        let success = false;
+        for (let i = 0; i < this.callbacks.length; i++) {
+          try {
+            if (success) {
+              result = this.callbacks[i].success(result);
+            } else {
+              result = this.callbacks[i].error(result);
+            }
+            success = true;
+          } catch (e) {
+            success = false;
+            result = e;
+          }
+        }
+      }
+      then(success, error) {
+        this.callbacks.push({
+          success,
+          error,
+        });
+        return this;
+      }
+    }
+    function div(a, b) {
+      return new CustomPromise((resolve, reject) => {
+        setTimeout(() => {
+          console.log("computed div");
+          if (isNaN(a) || isNaN(b)) {
+            reject("a or b is NaN");
+          } else {
+            resolve(a / b);
+          }
+        }, 3000);
+      });
+    }
+
+    div(10, NaN)
+      .then(
+        (x) => x * 2,
+        function (err) {
+          throw new Error(err);
+        },
+      )
+      .then(
+        (x) => console.log("result ", x),
+        (err) => console.log("second err ", err),
+      );
+  </script>
+</html>

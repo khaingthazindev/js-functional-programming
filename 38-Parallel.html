@@ -1,0 +1,52 @@
+<html>
+  <script>
+    //  fetch("https://dummyjson.com/todos")
+    //    .then((res) => res.json())
+    //    .then(console.log);
+
+    console.time("timer");
+    //  fetch("https://dummyjson.com/todos/1")
+    //    .then((res) => res.json())
+    //    .then((todo1) => {
+    //      fetch("https://dummyjson.com/todos/2")
+    //        .then((res2) => res2.json())
+    //        .then((todo2) => {
+    //          console.log("todo1 ", todo1, "todo2 ", todo2);
+    //          console.timeLog("timer");
+    //        });
+    //    });
+
+    // faster than waiting the first fetch line to finish
+    //  let todos = [];
+    //  fetch("https://dummyjson.com/todos/")
+    //    .then((res) => res.json())
+    //    .then((todo1) => {
+    //      todos.push(todo1);
+    //      if (todos.length === 2) console.timeLog("timer");
+    //    });
+
+    //  fetch("https://dummyjson.com/todos/2")
+    //    .then((res2) => res2.json())
+    //    .then((todo2) => {
+    //      todos.push(todo2);
+    //      if (todos.length === 2) console.timeLog("timer");
+    //    });
+
+    let urls = [
+      "https://dummyjson.com/todos/",
+      "https://dummyjson.com/todos/2",
+    ];
+    let promises = urls.map((url) =>
+      fetch(url).then((response) => response.json()),
+    );
+    //  Promise.all and allSettled is for 'Parallel'
+    //  Promise.all 'all must correct'
+    Promise.all(promises).then((data) =>
+      console.timeLog("timer", "all done ", data),
+    );
+    //  Promise.allSettled 'some might incorrect'
+    //  Promise.allSettled(promises).then((data) =>
+    //    console.timeLog("timer", "all done ", data),
+    //  );
+  </script>
+</html>

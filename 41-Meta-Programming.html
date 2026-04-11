@@ -1,0 +1,87 @@
+<html>
+  <script>
+    // VALIDATION SYSTEM
+    const user = {
+      name: "",
+      age: 0,
+    };
+    const validator = {
+      set(target, key, value) {
+        if (key === "name" && value.length < 2) {
+          throw new Error("Name too short");
+        }
+        if (key === "age" && typeof value !== "number") {
+          throw new Error("Age must be a number");
+        }
+        target[key] = value;
+        return true;
+      },
+    };
+    const userProxy = new Proxy(user, validator);
+    /*
+	Validation fail case
+	userProxy.name = "A";
+	userProxy.age = "30";
+	*/
+    // Validation success case
+    userProxy.name = "Thazin";
+    userProxy.age = 30;
+    console.log("name ", userProxy.name);
+    console.log("age ", userProxy.age);
+
+    //  LOGGING / DEBUGGING SYSTEM
+    function apiCall(url) {
+      return `fetching from ${url}`;
+    }
+    const handler = {
+      apply(target, thisArg, args) {
+        console.log(`Calling function with : ${args}`);
+        return target(...args);
+      },
+    };
+    const tracedApiCall = new Proxy(apiCall, handler);
+    console.log(tracedApiCall("https://example.com"));
+
+    //  AUTO DEFAULT VALUE
+    const settings = {};
+    const defaultHandler = {
+      get(target, key) {
+        return key in target ? target[key] : "default value";
+      },
+    };
+    let config = new Proxy(settings, defaultHandler);
+    console.log("theme in settings =", config.theme);
+
+    //  ACCESS CONTROL
+    const person = {
+      name: "Alice",
+      isAdmin: false,
+    };
+    const secureHandler = {
+      get(target, key) {
+        if (key === "isAdmin") {
+          throw new Error("Access denined");
+        }
+        return target[key];
+      },
+    };
+    const secureUser = new Proxy(person, secureHandler);
+    console.log("name", secureUser.name);
+    /*
+	 access denined case
+    console.log("isAdmin", secureUser.isAdmin);
+	 */
+
+    //  REACTIVE SYSTEM
+    let data = { count: 0 };
+    const reactive = {
+      set(target, key, value) {
+        target[key] = value;
+        console.log("UI updated");
+        return true;
+      },
+    };
+    let reactiveProxy = new Proxy(data, reactive);
+    reactiveProxy.count = 1;
+  </script>
+</html>

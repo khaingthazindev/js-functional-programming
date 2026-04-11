@@ -1,0 +1,27 @@
+<html>
+  <script>
+    //  Promise.resolve(10)
+    //    .then(
+    //      (result) => result * 2,
+    //      (err) => {
+    //        throw new Error("Error");
+    //      },
+    //    )
+    //    .then(
+    //      (result) => console.log("Result ", result),
+    //      (err) => console.log("error ", err),
+    //    );
+
+    Promise.reject("Bad case")
+      .then(
+        (result) => result * 2,
+        (error1) => {
+          throw new Error("Promise reject error");
+        },
+      )
+      .then(
+        (result) => console.log("result ", result),
+        (err) => console.log(err),
+      );
+  </script>
+</html>

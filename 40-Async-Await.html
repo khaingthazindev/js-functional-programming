@@ -1,0 +1,33 @@
+<html>
+  <script>
+    // a function that includes await must be async function
+    //  async function returns Promise
+    async function getTodo() {
+      // async like sync code
+      let response = await fetch("https://dummyjson.com/todos"); //fetch returns Promise
+      let data = await response.json(); //response.json() returns Promise
+      console.log(data);
+
+      let response2 = await fetch("https://dummyjson.com/todos"); //fetch returns Promise
+      let data2 = await response2.json(); //response2.json() returns Promise
+      console.log(data2);
+    }
+    getTodo();
+
+    //  fetch todos line 6 and 10 should be run parallel above code will block the line 10 code
+    //  solve with Promise.all()
+    async function getAllTodos() {
+      let urls = [
+        "https://dummyjson.com/todos/1",
+        "https://dummyjson.com/todos/2",
+      ];
+      let promises = urls.map((url) =>
+        fetch(url).then((response) => response.json()),
+      );
+      let data = await Promise.all(promises);
+      return data;
+    }
+    let data = getAllTodos();
+    data.then((result) => console.log("result ", result));
+  </script>
+</html>

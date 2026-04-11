@@ -1,0 +1,17 @@
+<html>
+  <script>
+    function div(a, b, callback) {
+      setTimeout(() => {
+        console.log("computed");
+        callback(a / b);
+        console.log("done");
+      }, 3000);
+    }
+
+    function callback(data) {
+      console.log("data ", data);
+    }
+
+    div(10, 2, callback);
+  </script>
+</html>
