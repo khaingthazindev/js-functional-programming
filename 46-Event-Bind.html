@@ -1,0 +1,30 @@
+<html>
+  <body>
+    <table id="mytable" data-border-value="2" border="1" width="300">
+      <tbody id="tblContainer">
+        <tr class="tr">
+          <td>1</td>
+          <td>One</td>
+        </tr>
+        <tr class="tr">
+          <td>2</td>
+          <td>Two</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+  <script>
+    document
+      .getElementById("tblContainer") // Node list
+      .addEventListener("click", function (e) {
+        console.log(e.target.closest("tr"));
+      });
+
+    //  console.log(document.getElementsByTagName("tr")); HTMLCollection
+    console.log(document.getElementsByClassName("tr"));
+    console.log(document.querySelector("#mytable"));
+
+    console.log(document.getElementById("mytable").getAttribute("border"));
+    console.log(document.getElementById("mytable").dataset.borderValue);
+  </script>
+</html>

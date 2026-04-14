@@ -1,0 +1,55 @@
+<html>
+  <body>
+    <img
+      src="https://images.stockcake.com/public/c/d/9/cd9bc40d-336a-49ec-88cf-d6c20d70cece_large/apple-tree-bloom-stockcake.jpg"
+      alt=""
+      srcset=""
+      width="200"
+    />
+    <div id="container"></div>
+    <button type="button" id="btnUpdate">Update</button>
+  </body>
+  <script>
+    // it goes by async with api() so we need to check with .onload to make sure adding script file completely
+    /*  With callback 
+    function loadScript(filename, callback) {
+      let script = document.createElement("script");
+      script.src = filename;
+      document.head.appendChild(script);
+      script.onload = function () {
+        callback();
+      };
+    }
+		*/
+
+    //  with Promise
+    function loadScript(filename) {
+      return new Promise((resolve, reject) => {
+        let script = document.createElement("script");
+
+        if (!window.api) {
+          script.src = filename;
+          document.head.appendChild(script);
+        }
+
+        script.onload = resolve;
+        script.onerror = reject;
+      });
+    }
+
+    document.getElementById("btnUpdate").addEventListener("click", function () {
+      // loadScript("./js/42-hello.js", () => api());
+      loadScript("./js/42-hello.js").then(() => api());
+      getapi();
+    });
+
+    window.addEventListener("DOMContentLoaded", function () {
+      console.log("Dom completed");
+    });
+
+    //  catch all errors
+    window.onerror = (e) => {
+      console.log("error ", e);
+    };
+  </script>
+</html>

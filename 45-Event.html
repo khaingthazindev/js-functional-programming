@@ -1,0 +1,59 @@
+<html>
+  <body>
+    <div id="parent">
+      Parent
+      <div id="child">Child</div>
+    </div>
+    <span id="typing"></span>
+    <!--
+	 not recommend
+    <button onclick="console.log('clicked')">
+      click event register through property
+    </button>
+	-->
+  </body>
+  <script>
+    window.addEventListener("keyup", function (e) {
+      let oldValue = document.querySelector("#typing").textContent;
+      document.querySelector("#typing").innerHTML = `${oldValue}${e.key}`;
+    });
+
+    //  register event handler through property (not recommend because it will overwrite if already exist)
+    window.onload = () => {
+      console.log("window loaded");
+    };
+
+    document.getElementById("parent").addEventListener("click", function (e) {
+      e.stopImmediatePropagation();
+      console.log("parent clicked ", e);
+      console.log("parent clicked 1 own event ", e.target === e.currentTarget);
+    });
+    document.getElementById("parent").addEventListener("click", function (e) {
+      // console.log("parent clicked ", e.currentTarget);
+      console.log("parent clicked 2 own event ", e.target === e.currentTarget);
+    });
+
+    //  when we click child, trigger parent's click event
+    document.getElementById("child").addEventListener("click", function (e) {
+      e.stopPropagation();
+      // console.log("child clicked ", e.target);
+      // console.log("child clicked own event ", e.target === e.currentTarget);
+      let parent = document.getElementById("parent");
+      parent.dispatchEvent(
+        new CustomEvent("click", {
+          detail: { a: 1 },
+        }),
+      );
+    });
+
+    /*communicate with event 
+     setInterval(
+       () => document.dispatchEvent(new CustomEvent("remind-event")),
+       1000,
+     );
+     document.addEventListener("remind-event", function (e) {
+       console.log("reminder event with setInterval ");
+     });
+	  */
+  </script>
+</html>

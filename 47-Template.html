@@ -1,0 +1,44 @@
+<html>
+  <body>
+    <button id="add-row">add row</button>
+    <template>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </template>
+    <table id="mytable" data-border-value="2" border="1" width="300">
+      <tbody id="tblContainer">
+        <tr class="tr">
+          <td>1</td>
+          <td>One</td>
+        </tr>
+        <tr class="tr">
+          <td>2</td>
+          <td>Two</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+  <script>
+    document.getElementById("add-row").addEventListener("click", function (e) {
+      let content = prompt("Enter content...");
+      let rowTemplate = document.querySelector("template");
+      let cloneNode = rowTemplate.content.cloneNode(true);
+      let tds = cloneNode.querySelectorAll("td");
+      tds[0].textContent =
+        document.getElementById("tblContainer").querySelectorAll("tr").length +
+        1;
+      tds[1].textContent = content;
+      document.getElementById("tblContainer").append(cloneNode);
+    });
+
+    //  usage for drag and drop
+    document.addEventListener("click", function (e) {
+      console.log(
+        "element from x and y ",
+        document.elementFromPoint(e.clientX, e.clientY),
+      );
+    });
+  </script>
+</html>
