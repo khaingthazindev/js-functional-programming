@@ -40,5 +40,9 @@
         document.elementFromPoint(e.clientX, e.clientY),
       );
     });
+
+    window.addEventListener("storage", function (e) {
+      console.log(e);
+    });
   </script>
 </html>

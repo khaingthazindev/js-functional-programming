@@ -1,0 +1,19 @@
+<html>
+  <body></body>
+  <script>
+    // store depends on domain so all pages of same domain can access
+    let name = localStorage.username;
+    if (!name) {
+      name = prompt("Enter name");
+      localStorage.username = name;
+    }
+    //  let obj = {
+    //    name: "thazin",
+    //  };
+    //  localStorage.user = JSON.stringify(obj);
+
+    window.addEventListener("storage", function (e) {
+      console.log(e);
+    });
+  </script>
+</html>

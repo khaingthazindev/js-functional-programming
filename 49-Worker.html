@@ -1,0 +1,17 @@
+<html>
+  <script>
+    let worker = new Worker("./js/49-Worker.js");
+
+    let numbers = [];
+    for (let i = 0; i < 100000000; i++) {
+      numbers.push(i);
+    }
+    console.log("sending data to worker...");
+
+    worker.postMessage(numbers);
+
+    worker.onmessage = function (e) {
+      console.log("worker's message: ", e.data);
+    };
+  </script>
+</html>
